@@ -29,66 +29,76 @@ const people = [
 // Array.prototype.filter()
 // 1. Filter the list of inventors for those who were born in the 1500's and return the filtered array
 export function myfilter() {
-	const filterarr = [];
- for(let i = 0;i<inventors.length;i++){
-	 if(year<1500){
-		filterarr.push(inventors[i]);
-	 }
- }
-	return filterarr;
+  const filteredInventors = inventors.filter(inventor => (inventor.year >= 1500 && inventor.year < 1600));
+  return filteredInventors;
 }
+
 
 // Array.prototype.map()
 // 2. Give us an array of the inventor first and last names (i.e. full name)
 // Ex: For the first inventor the full name will be 'Albert Einstein'
 export function map() {
- const names=[];
-	for(let i = 0;i<inventors.length;i++) {
-	  names.push(first +""+last);
-	}
-}r return names;
+  const inventorNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+  return inventorNames;
+}
+
 
 
 // Array.prototype.sort()
 // 3. Sort the inventors by birthdate, oldest to youngest and return the sorted array
 export function sort() {
-	let max = inventors[i];
-	const dob=[];
-	for(let i = 0;i<inventors.length;i++) {
-	  if(year>max) {
-		  arr[i] = max;
-	  }
-    dob.push(max);
-	dob.sort(function(a, b){return b-a});;
-
-	}
-return dob;
-
+  const sortedInventors = inventors.sort((a, b) => a.year - b.year);
+  return sortedInventors;
 }
+
 
 
 // Array.prototype.reduce()
 // 4. How many years did all the inventors live?
 // Return the total number of years all the inventors lived
 export function reduce() {
-
+  const totalYearsLived = inventors.reduce((acc, inventor) => {
+    return acc + (inventor.passed - inventor.year);
+  }, 0);
+  return totalYearsLived;
 }
+
 
 // 5. Sort the inventors by years lived and return the sorted array
 export function sortbylived() {
-
+  const oldest = inventors.sort((a, b) => {
+    const lastInventor = a.passed - a.year;
+    const nextInventor = b.passed - b.year;
+    return lastInventor > nextInventor ? -1 : 1;
+  });
+  return oldest;
 }
+
 
 // 6. sort Exercise
 // Sort the people alphabetically by last name and return the sorted array
 export function sortByLastName() {
-
+  const sortedPeopleByLastName = people.sort((a, b) => {
+    const [aLast, aFirst] = a.split(", ");
+    const [bLast, bFirst] = b.split(", ");
+    return aLast > bLast ? 1 : -1;
+  });
+  return sortedPeopleByLastName;
 }
+
 
 // 7. Reduce Exercise
 // Sum up the instances of each of these
 const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck', 'pogostick'];
 
 export function reducedSum() {
-    // Return an object containing transports as key and its number of occurances as the key's value
+  const transportCounts = data.reduce((obj, transport) => {
+    if (!obj[transport]) {
+      obj[transport] = 1;
+    } else {
+      obj[transport]++;
+    }
+    return obj;
+  }, {});
+  return transportCounts;
 }
